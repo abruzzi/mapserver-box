@@ -1,0 +1,38 @@
+---
+- hosts: all
+  sudo: yes
+
+  tasks:
+    - name: Get aptitude for upgrade
+      apt: pkg=aptitude state=present
+
+    - name: install packages
+      apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
+      sudo: yes
+      with_items:
+        - apache2
+        - apache2-utils
+        - gdal-bin
+        - mapserver-bin
+
+    - name: ensure apache2 is running
+      sudo: yes
+      service: name=apache2 state=running enabled=yes
+
+    - name: enable cgi for apache2
+      command: a2enmod cgi
+      sudo: yes
+
+    - name: config cgi-bin
+      command: ln -s /usr/bin/mapserv /usr/lib/cgi-bin/mapserv -f
+      sudo: yes
+
+    - name: enable cgi script
+      sudo: yes
+      lineinfile: destfile=/etc/apache2/sites-available/000-default.conf
+                  regexp="^#Include conf-available/serve-cgi-bin.conf"
+                  line="Include conf-available/serve-cgi-bin.conf"
+                  state=present
+
+    - name: restart apache2
+      service: name=apache2 state=restarted
