@@ -14,6 +14,8 @@
         - apache2-utils
         - gdal-bin
         - mapserver-bin
+        - mapcache-cgi
+        - libapache2-mod-mapcache
 
     - name: ensure apache2 is running
       sudo: yes
@@ -26,6 +28,14 @@
     - name: config cgi-bin
       command: ln -s /usr/bin/mapserv /usr/lib/cgi-bin/mapserv -f
       sudo: yes
+
+    - name: copy mapcache configuration for apache2
+      sudo: yes
+      template: src=mapcache.conf dest=/etc/apache2/conf-available/mapcache.conf backup=yes
+
+    - name: enable the config for default site
+      sudo: yes
+      command: a2enconf mapcache
 
     - name: enable cgi script
       sudo: yes

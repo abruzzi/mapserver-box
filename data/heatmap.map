@@ -1,0 +1,82 @@
+MAP
+  IMAGETYPE      PNG
+  EXTENT         103.000000 30.004734 114.986672 38.006813
+  SIZE           8000 6000
+  SHAPEPATH      "/data/heatmap"
+  IMAGECOLOR     255 255 255
+
+  WEB
+    IMAGEPATH "/tmp/ms_tmp/"
+    IMAGEURL "/ms_tmp/"
+    METADATA
+      "wms_title"     "WMS Server"  ##required
+      "wms_onlineresource" "http://localhost:9999/cgi-bin/mapserv?"   ##required
+      "wms_srs"       "EPSG:4326"  ##recommended
+      "wms_enable_request" "*"   ##necessary
+    END
+  END # Web
+
+  OUTPUTFORMAT
+    NAME "png"
+    DRIVER AGG/PNG
+    MIMETYPE "image/png"
+    IMAGEMODE RGB
+    EXTENSION "png"
+    FORMATOPTION "GAMMA=0.75"
+    TRANSPARENT ON
+  END
+
+  PROJECTION
+    "init=epsg:3857"   ##required
+  END
+
+  LAYER # States polygon layer begins here
+    NAME         heatmap
+    DATA         heatmap
+    STATUS       OFF
+    TYPE         POLYGON
+    #CLASSITEM density
+
+    CLASS
+      EXPRESSION ([density] = 1)
+      STYLE
+        COLOR        255 255 178
+        OUTLINECOLOR 255 255 178
+      END
+    END
+
+    CLASS
+      EXPRESSION ([density] > 1 AND [density] <= 2)
+      STYLE
+        COLOR        254 204 92
+        OUTLINECOLOR 254 204 92
+      END
+    END
+
+    CLASS
+      EXPRESSION ([density] > 2 AND [density] <= 3)
+      STYLE
+        COLOR        253 141 60
+        OUTLINECOLOR 253 141 60
+      END
+    END
+
+    CLASS
+      EXPRESSION ([density] > 3 AND [density] <= 10)
+      STYLE
+        COLOR        240 59 32
+        OUTLINECOLOR 240 59 32
+      END
+    END
+
+    CLASS
+      EXPRESSION ([density] > 10 AND [density] < 3438)
+      STYLE
+        COLOR        189 0 38
+        OUTLINECOLOR 189 0 38
+      END
+    END
+
+  END
+
+END

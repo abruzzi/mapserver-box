@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapcache>
+   <cache name="disk" type="disk">
+      <base>/tmp</base>
+      <symlink_blank/>
+   </cache>
+
+   <source name="world" type="wms">
+     <getmap>
+       <params>
+          <MAP>/data/world.map</MAP>
+          <MODE>map</MODE>
+          <FORMAT>image/png</FORMAT>
+          <LAYERS>world</LAYERS>
+       </params>
+     </getmap>
+     <http>
+       <url>http://localhost/cgi-bin/mapserv</url>
+     </http>
+   </source>
+
+   <source name="heatmap" type="wms">
+     <getmap>
+       <params>
+          <MAP>/data/heatmap.map</MAP>
+          <MODE>map</MODE>
+          <FORMAT>image/png</FORMAT>
+          <LAYERS>heatmap</LAYERS>
+       </params>
+     </getmap>
+     <http>
+       <url>http://localhost/cgi-bin/mapserv</url>
+     </http>
+   </source>
+
+   <tileset name="heatmap">
+      <source>heatmap</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>5 5</metatile>
+      <metabuffer>10</metabuffer>
+      <expires>3600</expires>
+   </tileset>
+
+   <tileset name="world">
+      <source>world</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>5 5</metatile>
+      <metabuffer>10</metabuffer>
+      <expires>3600</expires>
+   </tileset>
+
+   <default_format>JPEG</default_format>
+
+   <service type="wms" enabled="true">
+      <full_wms>assemble</full_wms>
+      <resample_mode>bilinear</resample_mode>
+      <format>JPEG</format>
+      <maxsize>4096</maxsize>
+   </service>
+
+   <service type="wmts" enabled="true"/>
+   <service type="tms" enabled="true"/>
+   <service type="kml" enabled="true"/>
+   <service type="gmaps" enabled="true"/>
+   <service type="ve" enabled="true"/>
+   <service type="mapguide" enabled="true"/>
+   <service type="demo" enabled="false"/>
+
+   <errors>report</errors>
+   <lock_dir>/tmp</lock_dir>
+
+</mapcache>

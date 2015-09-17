@@ -10,7 +10,7 @@ Vagrant.configure(2) do |config|
   config.vm.network "private_network", ip: "192.168.3.11"
 
   # config.vm.network "public_network"
-  config.vm.synced_folder "./scripts", "/scripts"
+  config.vm.synced_folder "./data", "/data"
 
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "1024"
