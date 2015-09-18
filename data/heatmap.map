@@ -1,6 +1,6 @@
 MAP
   IMAGETYPE      PNG
-  EXTENT         103.000000 30.004734 114.986672 38.006813
+  EXTENT         11859978.732852 3994742.227345 12753503.595559 4580388.268737
   SIZE           8000 6000
   SHAPEPATH      "/data/heatmap"
   IMAGECOLOR     255 255 255
@@ -11,7 +11,7 @@ MAP
     METADATA
       "wms_title"     "WMS Server"  ##required
       "wms_onlineresource" "http://localhost:9999/cgi-bin/mapserv?"   ##required
-      "wms_srs"       "EPSG:4326"  ##recommended
+      "wms_srs"       "EPSG:3857"  ##recommended
       "wms_enable_request" "*"   ##necessary
     END
   END # Web
@@ -32,8 +32,8 @@ MAP
 
   LAYER # States polygon layer begins here
     NAME         heatmap
-    DATA         heatmap
-    STATUS       OFF
+    DATA         heatmap_3857
+    STATUS       default
     TYPE         POLYGON
     #CLASSITEM density
 

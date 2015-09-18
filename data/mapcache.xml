@@ -19,6 +19,20 @@
      </http>
    </source>
 
+  <source name="xian" type="wms">
+    <getmap>
+      <params>
+         <MAP>/data/xian.map</MAP>
+         <MODE>map</MODE>
+         <FORMAT>image/png</FORMAT>
+         <LAYERS>places</LAYERS>
+      </params>
+    </getmap>
+    <http>
+      <url>http://localhost/cgi-bin/mapserv</url>
+    </http>
+  </source>
+
    <source name="heatmap" type="wms">
      <getmap>
        <params>
@@ -32,6 +46,16 @@
        <url>http://localhost/cgi-bin/mapserv</url>
      </http>
    </source>
+
+   <tileset name="xian">
+      <source>xian</source>
+      <cache>disk</cache>
+      <grid>g</grid>
+      <format>PNG</format>
+      <metatile>5 5</metatile>
+      <metabuffer>10</metabuffer>
+      <expires>3600</expires>
+   </tileset>
 
    <tileset name="heatmap">
       <source>heatmap</source>
@@ -60,7 +84,7 @@
    <service type="wms" enabled="true">
       <full_wms>assemble</full_wms>
       <resample_mode>bilinear</resample_mode>
-      <format>JPEG</format>
+      <format>PNG</format>
       <maxsize>4096</maxsize>
    </service>
 
