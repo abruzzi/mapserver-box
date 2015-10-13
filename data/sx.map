@@ -1,0 +1,98 @@
+MAP
+  IMAGETYPE      PNG
+  EXTENT         11742988.382040 3725663.064964 12383936.644620 4805432.883027
+  SIZE           1600 1200
+  SHAPEPATH      "/data/places-ive-been"
+  IMAGECOLOR     76 143 252
+
+  WEB
+    IMAGEPATH "/tmp/ms_tmp/"
+    IMAGEURL "/ms_tmp/"
+    METADATA
+      "wms_title"     "WMS Server"  ##required
+      "wms_onlineresource" "http://localhost:9999/cgi-bin/mapserv?"   ##required
+      "wms_srs"       "EPSG:3857"  ##recommended
+      "wms_enable_request" "*"   ##necessary
+    END
+  END # Web
+
+  OUTPUTFORMAT
+    NAME "png"
+    DRIVER AGG/PNG
+    MIMETYPE "image/png"
+    IMAGEMODE RGB
+    EXTENSION "png"
+    FORMATOPTION "GAMMA=0.75"
+    TRANSPARENT ON
+  END
+
+  PROJECTION
+    "init=epsg:3857"   ##required
+  END
+
+  LAYER
+    NAME         "counties"
+    DATA         "counties-in-shaanxi-3857"
+    STATUS       default
+    TYPE         POLYGON
+    TRANSPARENCY 70
+
+    CLASS
+      NAME       "polygon"
+      STYLE
+        COLOR     255 255 255
+        OUTLINECOLOR 40 44 52
+      END
+    END
+  END
+
+  LAYER # States polygon layer begins here
+    NAME         "density"
+    DATA         "places-ive-been-in-sx-3857-density"
+    STATUS       ON
+    TYPE         POLYGON
+    TRANSPARENCY 80
+
+    CLASS
+      EXPRESSION ([density] > 0 AND [density] < 0.8)
+      STYLE
+        COLOR        247 251 255
+        OUTLINECOLOR 40 44 52
+      END
+    END
+
+    CLASS
+      EXPRESSION ([density] > 0.8 AND [density] <= 2.2)
+      STYLE
+        COLOR        199 220 239
+        OUTLINECOLOR 40 44 52
+      END
+    END
+
+    CLASS
+      EXPRESSION ([density] > 2.2 AND [density] <= 15.6)
+      STYLE
+        COLOR        114 178 215
+        OUTLINECOLOR 40 44 52
+      END
+    END
+
+    CLASS
+      EXPRESSION ([density] > 15.6 AND [density] <= 116.6)
+      STYLE
+        COLOR        40 120 184
+        OUTLINECOLOR 40 44 52
+      END
+    END
+
+    CLASS
+      EXPRESSION ([density] > 116.6 AND [density] < 8620)
+      STYLE
+        COLOR        8 48 107
+        OUTLINECOLOR 40 44 52
+      END
+    END
+
+  END
+
+END

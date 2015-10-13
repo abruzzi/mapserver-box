@@ -5,19 +5,29 @@
       <symlink_blank/>
    </cache>
 
-   <source name="world" type="wms">
+   <source name="sx" type="wms">
      <getmap>
        <params>
-          <MAP>/data/world.map</MAP>
+          <MAP>/data/sx.map</MAP>
           <MODE>map</MODE>
           <FORMAT>image/png</FORMAT>
-          <LAYERS>world</LAYERS>
+          <LAYERS>density</LAYERS>
        </params>
      </getmap>
      <http>
        <url>http://localhost/cgi-bin/mapserv</url>
      </http>
    </source>
+
+  <tileset name="sx">
+     <source>sx</source>
+     <cache>disk</cache>
+     <grid>g</grid>
+     <format>PNG</format>
+     <metatile>5 5</metatile>
+     <metabuffer>10</metabuffer>
+     <expires>3600</expires>
+  </tileset>
 
   <source name="xian" type="wms">
     <getmap>
@@ -25,7 +35,7 @@
          <MAP>/data/xian.map</MAP>
          <MODE>map</MODE>
          <FORMAT>image/png</FORMAT>
-         <LAYERS>places</LAYERS>
+         <LAYERS>roads</LAYERS>
       </params>
     </getmap>
     <http>
@@ -33,45 +43,9 @@
     </http>
   </source>
 
-   <source name="heatmap" type="wms">
-     <getmap>
-       <params>
-          <MAP>/data/heatmap.map</MAP>
-          <MODE>map</MODE>
-          <FORMAT>image/png</FORMAT>
-          <LAYERS>heatmap</LAYERS>
-       </params>
-     </getmap>
-     <http>
-       <url>http://localhost/cgi-bin/mapserv</url>
-     </http>
-   </source>
-
    <tileset name="xian">
       <source>xian</source>
       <cache>disk</cache>
-      <grid>g</grid>
-      <format>PNG</format>
-      <metatile>5 5</metatile>
-      <metabuffer>10</metabuffer>
-      <expires>3600</expires>
-   </tileset>
-
-   <tileset name="heatmap">
-      <source>heatmap</source>
-      <cache>disk</cache>
-      <grid>WGS84</grid>
-      <grid>g</grid>
-      <format>PNG</format>
-      <metatile>5 5</metatile>
-      <metabuffer>10</metabuffer>
-      <expires>3600</expires>
-   </tileset>
-
-   <tileset name="world">
-      <source>world</source>
-      <cache>disk</cache>
-      <grid>WGS84</grid>
       <grid>g</grid>
       <format>PNG</format>
       <metatile>5 5</metatile>

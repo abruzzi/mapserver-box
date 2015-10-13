@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule wms?(.*) /cgi-bin/mapserv?map=/data/xian.map&$1 [PT,QSA]

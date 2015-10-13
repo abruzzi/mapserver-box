@@ -1,18 +1,17 @@
 MAP
   IMAGETYPE      PNG
   EXTENT         12076900.006201 4006814.179729 12188333.391490 4095610.692532
-  SIZE           8000 6000
+  SIZE           1600 1200
   SHAPEPATH      "/data/places-ive-been"
   IMAGECOLOR     76 143 252
 
   WEB
-    IMAGEPATH "/tmp/ms_tmp/"
-    IMAGEURL "/ms_tmp/"
     METADATA
-      "wms_title"     "WMS Server"  ##required
-      "wms_onlineresource" "http://localhost:9999/cgi-bin/mapserv?"   ##required
+      "wms_title"     "juntao xian density"  ##required
+      "wms_onlineresource" "http://localhost/cgi-bin/mapserv?"   ##required
       "wms_srs"       "EPSG:3857"  ##recommended
       "wms_enable_request" "*"   ##necessary
+      "wms_format" "image/png"
     END
   END # Web
 
@@ -39,7 +38,7 @@ MAP
     CLASS
       NAME       "green-lines"
       STYLE
-        COLOR     101 204 56
+        COLOR     40 44 52
       END
     END
   END
@@ -50,6 +49,7 @@ MAP
     STATUS       default
     TYPE         POLYGON
     #CLASSITEM density
+    TRANSPARENCY 70
 
     CLASS
       EXPRESSION ([density] = 1)
