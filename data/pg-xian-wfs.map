@@ -1,0 +1,72 @@
+MAP
+  IMAGETYPE      PNG
+  EXTENT         108.4269269 33.8774759 109.4760981 34.6117499
+  SIZE           1600 1200
+  IMAGECOLOR     76 143 252
+
+  WEB
+    IMAGEPATH "/tmp/ms_tmp/"
+    IMAGEURL "/ms_tmp/"
+    METADATA
+      "ows_title"     "Highway in Xian"  ##required
+      "ows_srs"       "EPSG:4326"  ##recommended
+      "ows_abstract"    "Highway in Xian"
+      "ows_enable_request" "*"   ##necessary
+    END
+  END # Web
+
+  OUTPUTFORMAT
+    NAME "png"
+    DRIVER AGG/PNG
+    MIMETYPE "image/png"
+    IMAGEMODE RGB
+    EXTENSION "png"
+    FORMATOPTION "GAMMA=0.75"
+    TRANSPARENT ON
+  END
+
+  PROJECTION
+    "init=epsg:4326"   ##required
+  END
+
+  LAYER
+    CONNECTIONTYPE postgis
+    NAME "highways"
+    # Connect to a remote spatial database
+    CONNECTION "user=gis dbname=playground host=192.168.3.10 password=gis"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    # Get the lines from the 'way' column of the 'planet_osm_roads' table
+    DATA "way from planet_osm_roads using srid=4326 using unique osm_id"
+    STATUS ON
+    TYPE LINE
+    CLASSITEM 'highway'
+    # Of the lines in the extents, only render the wide highways
+    FILTER "highway is not null and oneway = 'yes'"
+    CLASS
+
+      # Make the superhighways brighter and 2 pixels wide
+      EXPRESSION "motorway"
+      STYLE
+        COLOR 240 78 152
+        WIDTH 2
+      END
+    END
+    CLASS
+      # All the rest are darker and only 1 pixel wide
+      EXPRESSION "primary"
+      STYLE
+        COLOR 246 141 46
+      END
+    END
+
+    METADATA
+       ows_title    "highways" ## REQUIRED
+       ows_abstract "highways in Xian"
+       gml_featureid "osm_id" ## REQUIRED
+       gml_include_items "osm_id,highway,layer,name,oneway,population,width,z_order"  ## Optional (serves all attributes for layer)
+    END
+
+    DUMP TRUE
+  END
+
+END
